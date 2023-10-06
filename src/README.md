@@ -1,6 +1,6 @@
 Setup:
 Opret en dør med ox_doorlock med navnet 'JuvelButik' det er nemlig standard
- - 'hvis at man vil have et andet navn end 'JuvelButik' kan det ændres i configgen' (Config.OXDoorName)
+ - hvis at man vil have et andet navn end 'JuvelButik' kan det ændres i configgen (Config.OXDoorName)
 
 Kig configgen igennem og ændre de ting smo skal ændres.
 
