@@ -1,3 +1,5 @@
+# Made for Esperia Roleplay
+
 # Setup:
 <p>Create a door with OX_DOORLOCK with the name "JuvelButik"</p>
 <p>- If you dont want the door to be named "JuvelButik" then change it in (Config.OXDoorName)</p>
