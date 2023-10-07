@@ -3,7 +3,11 @@
 TODO: 
 - Måske lav alle targets i en seperat lua fil.
 
+Et for loop som sletter alle glass targets når spilleren kommer for langt væk (Bliver nok nød til at skrive om på linje 140 så den ikke tager k med!).
+Items til hacking minigame og til lockpicking minigame.
+
 ]]--
+QBCore = exports['qb-core']:GetCoreObject()
 
 
 local CurrentCops = 0
@@ -14,11 +18,11 @@ local CurrentCops = 0
 RegisterNetEvent('checkIfPlayerLeaves', function()
   Citizen.CreateThread(function ()
     while true do
-      Citizen.Wait(1)
+      Citizen.Wait(500)
       local player = GetPlayerPed(-1)
       local playerCoords = GetEntityCoords(player)
 
-      if GetDistanceBetweenCoords(Config.startLockpicCoordinates.x, Config.startLockpicCoordinates.y, Config.startLockpicCoordinates.z, playerCoords.x, playerCoords.y, playerCoords.z, true) > 50.0 then
+      if GetDistanceBetweenCoords(Config.startLockpicCoordinates.x, Config.startLockpicCoordinates.y, Config.startLockpicCoordinates.z, playerCoords.x, playerCoords.y, playerCoords.z, true) > Config.CancelDistance then
         TriggerServerEvent("MissionStop")
         TriggerEvent("notify", Config.notifyTitle, Config.robberyCancled)    
         break
@@ -28,7 +32,6 @@ RegisterNetEvent('checkIfPlayerLeaves', function()
 end)
 
 -- Start/Lockpick target
-local startTarget = 
 exports["qb-target"]:AddBoxZone("beginLockpickingPJ", vector3(Config.startLockpicCoordinates.x, Config.startLockpicCoordinates.y, Config.startLockpicCoordinates.z), 1, 1, {
   name = "beginHackingPJ",
   heading = 32,
@@ -49,12 +52,17 @@ exports["qb-target"]:AddBoxZone("beginLockpickingPJ", vector3(Config.startLockpi
 -- Hacking minigame
 RegisterNetEvent("beginHackingMinigame")
 AddEventHandler("beginHackingMinigame", function (name)  
+  local hasHackingItem = QBCore.Functions.HasItem(Config.HackingItem)
+  if hasHackingItem then
   local success = exports['howdy-hackminigame']:Begin(Config.HackingAmountColors, Config.HackingTime)
 
   if success == true then 
     TriggerServerEvent("beginSmashingGlass:Server")
     TriggerEvent("notifys", Config.notifyTitle, Config.hackingMinigameSuccess)
     exports['qb-target']:RemoveZone(name)
+    end
+  else
+    TriggerEvent("notifys", Config.notifyTitle, Config.needHackingItem)
   end
 end)
 
@@ -88,12 +96,15 @@ end)
 -- Lockpick minigame
 RegisterNetEvent("LockpickGame")
 AddEventHandler("LockpickGame", function ()
+  local hasLockpick = QBCore.Functions.HasItem(Config.LockPickItem)
   if Config.isPoliceRequired then
-    if CurrentCops >= Config.MinimumPolice then
+      if CurrentCops <= Config.MinimumPolice then
+        TriggerEvent("notifys", Config.notifyTitle, Config.notEnoughPoliceLabel)
+      else
+      if hasLockpick then 
       local time = math.random(7,10) 
       local circles = math.random(2,4) 
       local success = exports['qb-lock']:StartLockPickCircle(circles, time, success)
-
         if success then 
           TriggerServerEvent("door", 0)
           TriggerServerEvent("MissionStart")
@@ -103,12 +114,13 @@ AddEventHandler("LockpickGame", function ()
                 TriggerServerEvent("door", 1)
           end
         end
-
-    else
-      TriggerEvent("notifys", Config.notifyTitle, Config.notEnoughPoliceLabel)
-    end 
+      else
+        TriggerEvent("notifys", Config.notifyTitle, Config.needLockpick)
+      end
+    end
 
     else if Config.isPoliceRequired == false then
+      if hasLockpick then
       local time = math.random(7,10) 
       local circles = math.random(2,4) 
       local success = exports['qb-lock']:StartLockPickCircle(circles, time, success)
@@ -122,9 +134,11 @@ AddEventHandler("LockpickGame", function ()
                 TriggerServerEvent("door", 1)
           end
         end
-      end
-
-  end
+        else
+          TriggerEvent("notifys", Config.notifyTitle, Config.needLockpick)
+        end
+      end 
+    end
 end)
 
 
@@ -134,8 +148,8 @@ end)
 RegisterNetEvent("beginSmash:Client")
 AddEventHandler("beginSmash:Client", function ()
 for k, v in pairs(Config.SmashGlass) do
-    GlassTargets = exports["qb-target"]:AddBoxZone("SmashGlass"..k, vector3(v.x, v.y, v.z), 1, 1, {
-        name = "SmashGlass"..k,
+    GlassTargets = exports["qb-target"]:AddBoxZone(v.name.."Pede", vector3(v.x, v.y, v.z), 1, 1, {
+        name = v.name.."Pede",
         heading = 32,
         debugPoly = false,
         minZ = v.z - 1,
@@ -145,7 +159,7 @@ for k, v in pairs(Config.SmashGlass) do
             {  
                 action = function()
                   
-                  TriggerEvent("targetUsed", v.x, v.y, v.z, "SmashGlass"..k)
+                  TriggerEvent("targetUsed", v.x, v.y, v.z, v.name.."Pede")
                 end,
                 icon = Config.targetIcon, 
                 label = Config.smashGlassTarget,
@@ -154,8 +168,6 @@ for k, v in pairs(Config.SmashGlass) do
         distance = 2.0
     })
   end
-
-
 
 
 RegisterNetEvent("targetUsed")
@@ -174,14 +186,16 @@ end)
 -- Fjerner alle targets når spilleren går for langt væk
 RegisterNetEvent("robberyCancled:DELETEGlassTargets")
 AddEventHandler("robberyCancled:DELETEGlassTargets", function()
-    exports['qb-target']:RemoveZone(GlassTargets)
-  end)
+  for k, v in ipairs(Config.SmashGlass) do
+    exports['qb-target']:RemoveZone(v.name.."Pede")
+  end
 end)
 
+end)
 -- Event som fjerner HackSecurityTarget
 RegisterNetEvent("robberyCancled")
 AddEventHandler("robberyCancled", function()
-  exports['qb-target']:RemoveZone(HackSecurityTarget)
+  exports['qb-target']:RemoveZone("beginHackingPJ")
 end)
 
 -- Gør så at røveriet er synced med serveren så hvis en starter det så kan resten af serveren også være med

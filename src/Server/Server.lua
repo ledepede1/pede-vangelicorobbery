@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['qb-core']:GetCoreObject()
 
 local missionIsStared = false
 
@@ -72,6 +72,7 @@ RegisterNetEvent("removeGlassTarget:Server")
 AddEventHandler("removeGlassTarget:Server", function (name)
     TriggerClientEvent("removeGlassTarget:Client", -1, name) -- -1 for hele serveren
 end)
+
 
 
 

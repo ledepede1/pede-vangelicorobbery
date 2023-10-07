@@ -1,10 +1,15 @@
 Config = {}
 
+Config.CancelDistance = 50 -- Hvor langt væk at spilleren skal gå før at røveriet bliver afsluttet
+
+Config.LockPickItem = "lockpick"
+
+Config.HackingItem = "trojan_usb"
 Config.HackingTime = 5000
 Config.HackingAmountColors = 2
 
-Config.isPoliceRequired = false -- ## Har ikke lige testet det yderligere så forvent at der godt kan komme fejl og bugs! ##
-Config.MinimumPolice = 1 -- Hvor mange betjente der skal være inde for at starte røveriet
+Config.isPoliceRequired = true -- Er politi required? Ikke testet igennem endu
+Config.MinimumPolice = 0 -- Hvor mange betjente der skal være inde for at starte røveriet
 
 Config.OXDoorName = "JuvelButik" -- standard: "JuvelButik"
 
@@ -68,6 +73,10 @@ Config.hackingMinigameSuccess = "Sådan! Gå ud og røv hele lortet!"
 Config.startingRobbery = "Starter røveri"
 
 Config.notEnoughPoliceLabel = "Ikke nok politi på arbejde!"
+
+Config.needLockpick = "Du skal bruge en lockpick!"
+
+Config.needHackingItem = "Du skal bruge en " .. Config.HackingItem .. " for at kunne hacke dette!"
 
 
 
