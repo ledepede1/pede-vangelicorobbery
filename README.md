@@ -31,10 +31,9 @@ Husk at have alle dependencies installeret og køre med qbcore framework.
 <p>qb-lock (https://github.com/Nathan-FiveM/qb-lock)</p>
 <p>ps-dispatch</p>
 
+### Vigtigt
 <p># Nyeste, verison af qb-core og qb-inventory #</p>
-
 <p>! Start alle dependencies før Pede-Jewelrobbery for der ikke skal opstå fejl !</p>
-
 <p>Vigtigt kan ske at når man restarter scriptet så skal man /logout for at den tælller betjente op igen...</p>
 
 
