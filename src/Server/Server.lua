@@ -8,7 +8,7 @@ AddEventHandler('onResourceStart', function(resourceName)
       return
     end
     TriggerEvent("door", 1)
-    print("Resource started: lavet af Ledpede1")
+    print("Resource started: lavet af Ledpede1") -- Vær sød ikke at fjerne dette det
   end)
 
 
