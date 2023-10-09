@@ -254,15 +254,3 @@ RegisterCommand("resetrobbery", function(source, args, rawCommand)
   TriggerServerEvent("MissionStop")
 end, false)
 end
-
-
-
-
-
-
-
-
-
-
-  
-
