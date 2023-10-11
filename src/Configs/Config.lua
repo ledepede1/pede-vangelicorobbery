@@ -8,8 +8,8 @@ Config.HackingItem = "trojan_usb"
 Config.HackingTime = 5000
 Config.HackingAmountColors = 2
 
-Config.isPoliceRequired = true -- Er politi required? Ikke testet igennem endu
-Config.MinimumPolice = 0 -- Hvor mange betjente der skal være inde for at starte røveriet
+Config.isPoliceRequired = false -- Er politi required? Ikke testet igennem endu
+Config.MinimumPolice = 1 -- Hvor mange betjente der skal være inde for at starte røveriet
 
 Config.OXDoorName = "JuvelButik" -- standard: "JuvelButik"
 
@@ -53,7 +53,7 @@ Config.disableSecurity = { x = -631.2907, y = -230.1635, z = 38.0571 } -- Coords
 
 Config.Debug = true -- # true = debug oommands | false = ingen debug commands #
 
-
+Config.ProgressbarText = "Looting"
 
 -- Sprog:Targets --
 Config.targetIcon = "fa-regular fa-gem"
