@@ -2,6 +2,7 @@
 
 TODO: 
 - Måske lav alle targets i en seperat lua fil.
+- Optimer og rod op i koden
 
 ]]--
 QBCore = exports['qb-core']:GetCoreObject()
