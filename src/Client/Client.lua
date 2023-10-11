@@ -3,6 +3,9 @@
 TODO: 
 - Måske lav alle targets i en seperat lua fil.
 
+Et for loop som sletter alle glass targets når spilleren kommer for langt væk (Bliver nok nød til at skrive om på linje 140 så den ikke tager k med!).
+Items til hacking minigame og til lockpicking minigame.
+
 ]]--
 QBCore = exports['qb-core']:GetCoreObject()
 
@@ -214,6 +217,12 @@ AddEventHandler("beginTask", function(posX, posY, posZ)
       Citizen.Wait(0)
       end
       PlaySoundFromCoord(-1, "Glass_Smash", posX, posY, posZ, "", 0, 0, 0)
+      QBCore.Functions.Progressbar("smashing_progress", Config.ProgressbarText, 5000, false, true, {
+      disableMovement = false,
+      disableCarMovement = false,
+      disableMouse = false,
+      disableCombat = true,
+  })
       TaskPlayAnim(playerPed, 'missheist_jewel', 'smash_case', 8.0, 3.0, -1, 2, 0, 0, 0, 0)
       Citizen.Wait(6000)
       ClearPedTasksImmediately(playerPed)  
@@ -254,3 +263,15 @@ RegisterCommand("resetrobbery", function(source, args, rawCommand)
   TriggerServerEvent("MissionStop")
 end, false)
 end
+
+
+
+
+
+
+
+
+
+
+  
+
