@@ -3,9 +3,6 @@
 TODO: 
 - Måske lav alle targets i en seperat lua fil.
 
-Et for loop som sletter alle glass targets når spilleren kommer for langt væk (Bliver nok nød til at skrive om på linje 140 så den ikke tager k med!).
-Items til hacking minigame og til lockpicking minigame.
-
 ]]--
 QBCore = exports['qb-core']:GetCoreObject()
 
