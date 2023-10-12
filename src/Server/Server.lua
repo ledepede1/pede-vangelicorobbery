@@ -15,12 +15,8 @@ RegisterNetEvent('police:SetCopCount', function(amount) -- Eventet kan findes i 
   function Log(msg)
     local embeds = {
           {
-              --["color"] = "8663711",
               ["title"] = "Pede-Vangelico",
               ["description"] = msg,
-              --["footer"] = {
-                --["text"] = "errorlog",
-            --},
           }
     }
     PerformHttpRequest(Config.WebhookURL, function(err, text, headers) end, 'POST', json.encode({username = 'pede-vangelico', embeds = embeds}), { ['Content-Type'] = 'application/json' })
@@ -109,20 +105,20 @@ AddEventHandler("giveItems", function ()
 Count = Count+1
 
 if Count < MaxCount then
-if Config.isPoliceRequired == true then
-    if CurrentCops >= Config.MinimumPolice then
-        return
-    end 
-else
+    if Config.isPoliceRequired == true then
+        if CurrentCops >= Config.MinimumPolice then
+            return
+        end 
+    else
     local Player = QBCore.Functions.GetPlayer(source)
     local identifier = source
-    Log( "Player got item: " ..
-    GetPlayerName(identifier) .. QBCore.Functions.GetIdentifier(identifier, 'license') .. QBCore.Functions.GetIdentifier(identifier, 'discord')
-)
-    for i=1,Config.ItemsAmount do -- Gør så at man i configgen kan vælge hvor mange forskellige items skal gives til spilleren
-        Player.Functions.AddItem(RandomizedItem(), math.random(Config.RandomItemMin,Config.RandomItemMax))
+        Log( "Player got item: " ..
+        GetPlayerName(identifier) .. QBCore.Functions.GetIdentifier(identifier, 'license') .. QBCore.Functions.GetIdentifier(identifier, 'discord')
+        )
+        for i=1,Config.ItemsAmount do -- Gør så at man i configgen kan vælge hvor mange forskellige items skal gives til spilleren
+            Player.Functions.AddItem(RandomizedItem(), math.random(Config.RandomItemMin,Config.RandomItemMax))
+                    end
                 end
-            end
         else
             banforExploiting(source)
             Count = 0
