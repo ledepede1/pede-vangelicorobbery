@@ -26,6 +26,8 @@ Kig configgen igennem og ændre de ting smo skal ændres.
 Husk at have alle dependencies installeret og køre med qbcore framework.
 
 ### Dependiencies:
+<p>oxmysql (Nyeste version)</p>
+<p>qb-target</p>
 <p>ox_lib (til Notifikationer)</p>
 <p>ox_doorlock</p>
 <p>qb-lock (https://github.com/Nathan-FiveM/qb-lock)</p>
