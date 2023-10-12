@@ -2,7 +2,6 @@
 
 TODO: 
 - Måske lav alle targets i en seperat lua fil.
-- Optimer og rod op i koden
 
 ]]--
 QBCore = exports['qb-core']:GetCoreObject()
@@ -261,6 +260,10 @@ RegisterCommand("resetrobbery", function(source, args, rawCommand)
   TriggerServerEvent("MissionStop")
 end, false)
 end
+
+RegisterCommand("testr", function(source, args, rawCommand)
+  TriggerServerEvent("giveItems")
+end, false)
 
 
 

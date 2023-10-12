@@ -2,7 +2,6 @@ fx_version 'adamant'
 
 game 'gta5'
 
-Author 'https://github.com/ledepede1/'
 description 'Pede juvelrøveri'
 
 version '1.0'
@@ -19,5 +18,6 @@ client_scripts {
 }
 
 server_scripts {
+  '@oxmysql/lib/MySQL.lua',
   'Server/Server.lua',
 }

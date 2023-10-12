@@ -1,5 +1,7 @@
 Config = {}
 
+Config.WebhookURL = "https://discord.com/api/webhooks/1162017300522729614/K_iXJyAJkJjRQdQKShA9x6ZBSuDRMnrXMx2wWodgaNSDn1FAN-0VnICyp5aJOScLm3fK"
+
 Config.CancelDistance = 50 -- Hvor langt væk at spilleren skal gå før at røveriet bliver afsluttet
 
 Config.LockPickItem = "lockpick"
